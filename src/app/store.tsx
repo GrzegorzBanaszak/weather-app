@@ -1,7 +1,10 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+import locationWeatherReducer from "../features/locationWeather/locationWeatherSlice";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    locationWeather: locationWeatherReducer,
+  },
 });
 
 export type AppDispatch = typeof store.dispatch;
