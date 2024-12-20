@@ -5,8 +5,9 @@ import CurrentLocationLikedList from "./CurrentLocationLikedList";
 import { useAppSelector } from "../app/hooks";
 
 const CurrentLocation = () => {
-  const { cityName, weather } = useAppSelector(
-    (state) => state.locationWeather
+  const { weather } = useAppSelector((state) => state.locationWeather);
+  const { favoriteLocation } = useAppSelector(
+    (state) => state.favoriteLocation
   );
   return (
     <div className="py-6 bg-blue-400 px-4 text-white">
@@ -23,7 +24,9 @@ const CurrentLocation = () => {
         <div className="flex justify-between items-center pt-6">
           <div className="flex items-center">
             <FaLocationDot />
-            <h2 className="text-2xl font-bold py-3 ml-2">{cityName}</h2>
+            <h2 className="text-2xl font-bold py-3 ml-2">
+              {favoriteLocation.name}
+            </h2>
           </div>
           <Link to="/detail-weather">
             <button className="bg-white text-blue-900 px-4 py-2 rounded">
