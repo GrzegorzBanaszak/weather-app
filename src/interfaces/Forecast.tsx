@@ -1,6 +1,6 @@
 import Weather from "./Weather";
 
-export default interface DetailWeatherHistoryCardProps {
+export default interface Forecast {
   date: number;
   weather: Weather;
 }

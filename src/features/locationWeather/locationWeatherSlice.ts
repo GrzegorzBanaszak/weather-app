@@ -11,22 +11,14 @@ const initialState: LocationWeatherState = {
   },
   weather: {
     temp: data.main.temp,
-    feelsLike: data.main.feels_like,
-    tempMin: data.main.temp_min,
-    tempMax: data.main.temp_max,
     pressure: data.main.pressure,
     humidity: data.main.humidity,
-  },
-  clouds: {
-    main: data.weather[0].main,
-    description: data.weather[0].description,
-    icon: data.weather[0].icon,
-    all: data.clouds.all,
-  },
-  wind: {
-    speed: data.wind.speed,
-    deg: data.wind.deg,
-    gust: data.wind.gust,
+    weatherDescription: data.weather[0].description,
+    weatherIcon: data.weather[0].icon,
+    clouds: data.clouds.all,
+    windSpeed: data.wind.speed,
+    windDeg: data.wind.deg,
+    pop: 0,
   },
 };
 

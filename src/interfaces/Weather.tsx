@@ -1,8 +1,11 @@
 export default interface Weather {
   temp: number;
-  feelsLike: number;
-  tempMin: number;
-  tempMax: number;
   pressure: number;
   humidity: number;
+  weatherDescription: string;
+  weatherIcon: string;
+  clouds: number;
+  windSpeed: number;
+  windDeg: number;
+  pop: number;
 }

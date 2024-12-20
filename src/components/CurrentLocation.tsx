@@ -5,7 +5,9 @@ import CurrentLocationLikedList from "./CurrentLocationLikedList";
 import { useAppSelector } from "../app/hooks";
 
 const CurrentLocation = () => {
-  const { cityName, clouds } = useAppSelector((state) => state.locationWeather);
+  const { cityName, weather } = useAppSelector(
+    (state) => state.locationWeather
+  );
   return (
     <div className="py-6 bg-blue-400 px-4 text-white">
       <div className="">
@@ -13,7 +15,7 @@ const CurrentLocation = () => {
           <h1 className="text-2xl">Twoja aktualna lokalizacja</h1>
           <div className="w-12 bg-blue-300 rounded-xl">
             <img
-              src={`https://openweathermap.org/img/wn/${clouds.icon}@2x.png`}
+              src={`https://openweathermap.org/img/wn/${weather.weatherIcon}@2x.png`}
               alt=""
             />
           </div>
