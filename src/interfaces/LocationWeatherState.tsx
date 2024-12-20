@@ -1,6 +1,6 @@
 import Clouds from "./Clouds";
 import Coordinate from "./Coordinate";
-import Weather from "./weather";
+import Weather from "./Weather";
 import Wind from "./Wind";
 
 export default interface LocationWeatherState {

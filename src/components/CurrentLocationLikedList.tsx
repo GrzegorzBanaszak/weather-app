@@ -1,5 +1,7 @@
 import { IoMdMore } from "react-icons/io";
 import { Link } from "react-router";
+import Tooltip from "./Tooltip";
+import { FaInfoCircle } from "react-icons/fa";
 
 const CurrentLocationLikedList = () => {
   return (
@@ -14,11 +16,13 @@ const CurrentLocationLikedList = () => {
             <img className="w-8" src={`https://flagsapi.com/PL/flat/64.png`} />
           </div>
 
-          <Link
-            className="bg-teal-400 text-white p-2 rounded-lg flex justify-center items-center"
-            to="/forecast"
-          >
-            <IoMdMore className="cursor-pointer" size={20} />
+          <Link to="/forecast">
+            <Tooltip message="Dokładne informacje pogodowe">
+              <FaInfoCircle
+                className="cursor-pointer hover:text-blue-800 ease-in duration-300"
+                size={24}
+              />
+            </Tooltip>
           </Link>
         </div>
       </div>
