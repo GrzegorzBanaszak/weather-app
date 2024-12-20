@@ -23,9 +23,9 @@ const CurrentLocation = () => {
             <FaLocationDot />
             <h2 className="text-2xl font-bold py-3 ml-2">{cityName}</h2>
           </div>
-          <Link to="/forecast">
+          <Link to="/detail-weather">
             <button className="bg-white text-blue-900 px-4 py-2 rounded">
-              Sprawdz pogode
+              Sprawdz dokładną pogodę
             </button>
           </Link>
         </div>

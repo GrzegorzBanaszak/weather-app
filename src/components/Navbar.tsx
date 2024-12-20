@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { Link } from "react-router";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -17,9 +18,15 @@ const Navbar = () => {
             isOpen ? "block" : "hidden"
           } md:flex md:gap-2 md:items-center md:mt-0`}
         >
-          <li className="py-2">Strona główna</li>
-          <li className="py-2">Twoja lokalizacja</li>
-          <li className="py-2">Ulubione</li>
+          <li className="py-2">
+            <Link to="/">Strona główna</Link>
+          </li>
+          <li className="py-2">
+            <Link to="/detail-weather">Twoja lokalizacja</Link>
+          </li>
+          <li className="py-2">
+            <Link to="/favorite-weather">Ulubione lokalizacje</Link>
+          </li>
         </ul>
       </div>
     </nav>

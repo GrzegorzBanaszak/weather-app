@@ -1,5 +1,5 @@
 import React from "react";
-import LocationCardProps from "../interfaces/LocationCardPrompt";
+import LocationCardProps from "../interfaces/LocationCardProps";
 import { IoMdMore } from "react-icons/io";
 
 import { CiStar } from "react-icons/ci";
