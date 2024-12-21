@@ -9,7 +9,9 @@ import { Link } from "react-router";
 import CurrentLocationCityList from "../components/CurrentLocationCityList";
 
 const OpenPage = () => {
-  const { isUpdated } = useAppSelector((state) => state.locationWeather);
+  const { isUpdated, temperatureUnit } = useAppSelector(
+    (state) => state.locationWeather
+  );
 
   const { favoriteLocation, searchLocations } = useAppSelector(
     (state) => state.favoriteLocation
@@ -21,6 +23,7 @@ const OpenPage = () => {
         getWeatherOnLocation({
           lat: favoriteLocation.coordinates.lat,
           lon: favoriteLocation.coordinates.lon,
+          temperatureUnit,
         })
       );
     }

@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import LocationWeatherState from "../../interfaces/LocationWeatherState";
 import locationWeatherService from "./locationWeatherService";
-import Coordinate from "../../interfaces/Coordinate";
+import TemperatureEnum from "../../enum/TemperatureEnum";
+import { RequestData } from "../../interfaces/RequestData";
 
 const mostPopularCities = ["warszawa", "krakow", "wroclaw", "poznan", "gdansk"];
 
@@ -23,15 +24,17 @@ const initialState: LocationWeatherState = {
   },
   mostPopularCities: [],
   isUpdated: false,
+  temperatureUnit: TemperatureEnum.CELSIUS,
 };
 
 export const getWeatherOnLocation = createAsyncThunk(
   "locationWeather/getWeatherOnLocation",
-  async (coordinates: Coordinate, thunkAPI) => {
+  async (data: RequestData, thunkAPI) => {
     try {
       return await locationWeatherService.getWeatherOnLocation(
-        coordinates.lat,
-        coordinates.lon
+        data.lat,
+        data.lon,
+        data.temperatureUnit
       );
     } catch (error: any) {
       const message =
@@ -43,12 +46,14 @@ export const getWeatherOnLocation = createAsyncThunk(
 
 export const getWeatherOnMostPopularCities = createAsyncThunk(
   "locationWeather/getWeatherOnMostPopularCities",
-  async (_, thunkAPI) => {
+  async (temperatureUnit: string, thunkAPI) => {
     try {
       const data: Promise<any>[] = [];
 
       mostPopularCities.forEach((city) => {
-        data.push(locationWeatherService.getWeatherByCityName(city));
+        data.push(
+          locationWeatherService.getWeatherByCityName(city, temperatureUnit)
+        );
       });
 
       return await Promise.all(data);
@@ -67,22 +72,11 @@ export const locationWeatherSclice = createSlice({
     homeLocationChanged(state) {
       state.isUpdated = false;
     },
-    clearState(state) {
-      state.coordinates = {
-        lon: 0,
-        lat: 0,
-      };
-      state.weather = {
-        temp: 0,
-        pressure: 0,
-        humidity: 0,
-        weatherDescription: "",
-        weatherIcon: "",
-        clouds: 0,
-        windSpeed: 0,
-        windDeg: 0,
-        pop: 0,
-      };
+    temperatureUnitChanged(state) {
+      state.temperatureUnit =
+        state.temperatureUnit === TemperatureEnum.CELSIUS
+          ? TemperatureEnum.FAHRENHEIT
+          : TemperatureEnum.CELSIUS;
     },
   },
   extraReducers: (builder) => {
@@ -129,5 +123,6 @@ export const locationWeatherSclice = createSlice({
   },
 });
 
-export const { homeLocationChanged } = locationWeatherSclice.actions;
+export const { homeLocationChanged, temperatureUnitChanged } =
+  locationWeatherSclice.actions;
 export default locationWeatherSclice.reducer;

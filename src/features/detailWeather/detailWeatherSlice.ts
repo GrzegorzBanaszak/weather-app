@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import DetailWeatherState from "../../interfaces/DetailWeatherState";
 import detailWeatherService from "./detaliWeatherService";
-import Coordinate from "../../interfaces/Coordinate";
+import { RequestData } from "../../interfaces/RequestData";
 
 const initialState: DetailWeatherState = {
   cityName: "",
@@ -27,15 +27,17 @@ const initialState: DetailWeatherState = {
 
 export const getDetailWeatherAndForecast = createAsyncThunk(
   "detailWeather/getDetailWeatherAndForecast",
-  async (coordinates: Coordinate, thunkAPI) => {
+  async (requestData: RequestData, thunkAPI) => {
     try {
       const locationWeather = await detailWeatherService.getWeatherOnLocation(
-        coordinates.lat,
-        coordinates.lon
+        requestData.lat,
+        requestData.lon,
+        requestData.temperatureUnit
       );
       const forecast = await detailWeatherService.getForecastOnLocation(
-        coordinates.lat,
-        coordinates.lon
+        requestData.lat,
+        requestData.lon,
+        requestData.temperatureUnit
       );
 
       return { locationWeather, forecast };

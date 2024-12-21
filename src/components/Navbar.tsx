@@ -2,6 +2,7 @@ import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router";
 import Timer from "./Timer";
+import TemperatureSwitch from "./TemperatureSwitch";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -11,7 +12,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           <div className="font-bold">Pogodynka</div>
           <div className="md:hidden">
-            <Timer />
+            <TemperatureSwitch />
           </div>
           <div className="md:hidden">
             <GiHamburgerMenu size={24} onClick={() => setIsOpen(!isOpen)} />
@@ -29,8 +30,9 @@ const Navbar = () => {
             <Link to="/favorite-weather">Ulubione lokalizacje</Link>
           </li>
         </ul>
-        <div className="hidden md:block">
+        <div className="hidden md:flex md:items-center gap-2">
           <Timer />
+          <TemperatureSwitch />
         </div>
       </div>
     </nav>

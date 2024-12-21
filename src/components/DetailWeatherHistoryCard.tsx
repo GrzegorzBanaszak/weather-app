@@ -2,6 +2,7 @@ import React from "react";
 import { TbArrowBadgeUpFilled } from "react-icons/tb";
 import DetailWeatherHistoryCardProps from "../interfaces/DetailWeatherHistoryCardProps";
 import moment from "moment";
+import DisplayTemperatureSymbol from "./DisplayTemperatureSymbol";
 
 const DetailWeatherHistoryCard: React.FC<DetailWeatherHistoryCardProps> = ({
   date,
@@ -30,7 +31,10 @@ const DetailWeatherHistoryCard: React.FC<DetailWeatherHistoryCardProps> = ({
       </div>
       <div className="flex justify-between items-center py-2">
         <h4>Temepratura</h4>
-        <p>{weather.temp}°C</p>
+        <div>
+          {weather.temp}
+          <DisplayTemperatureSymbol />
+        </div>
       </div>
       <div className="flex justify-between items-center py-2">
         <h4>Wiatr </h4>

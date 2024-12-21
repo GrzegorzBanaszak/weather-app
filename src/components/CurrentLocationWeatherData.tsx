@@ -1,12 +1,16 @@
 import { useAppSelector } from "../app/hooks";
 import { TbArrowBadgeUpFilled } from "react-icons/tb";
+import DisplayTemperatureSymbol from "./DisplayTemperatureSymbol";
 const CurrentLocationWeatherData = () => {
   const { weather } = useAppSelector((state) => state.locationWeather);
   return (
     <div className="flex my-4 justify-between md:flex-col ">
       <div>
         <h4 className="font-bold">Temperatura</h4>
-        <p>{weather.temp}°C</p>
+        <p>
+          {weather.temp}
+          <DisplayTemperatureSymbol />
+        </p>
       </div>
       <div>
         <h4 className="font-bold">Ciśnienie</h4>

@@ -7,4 +7,5 @@ export default interface LocationWeatherState {
   weather: Weather;
   isUpdated: boolean;
   mostPopularCities: MostPopularCity[];
+  temperatureUnit: string;
 }

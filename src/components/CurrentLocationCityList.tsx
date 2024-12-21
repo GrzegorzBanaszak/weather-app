@@ -5,11 +5,11 @@ import { getWeatherOnMostPopularCities } from "../features/locationWeather/locat
 
 const CurrentLocationCityList = () => {
   const dispatch = useAppDispatch();
-  const { mostPopularCities } = useAppSelector(
+  const { mostPopularCities, temperatureUnit } = useAppSelector(
     (state) => state.locationWeather
   );
   useEffect(() => {
-    dispatch(getWeatherOnMostPopularCities());
+    dispatch(getWeatherOnMostPopularCities(temperatureUnit));
   }, []);
 
   return (

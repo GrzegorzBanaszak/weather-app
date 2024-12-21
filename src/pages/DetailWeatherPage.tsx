@@ -12,6 +12,7 @@ import Spinner from "../components/Spinner";
 const DetailWeatherPage = () => {
   const location = useLocation();
   const { isLoaded } = useAppSelector((state) => state.detailWeather);
+  const { temperatureUnit } = useAppSelector((state) => state.locationWeather);
   const dispatch = useAppDispatch();
   const queryParams = new URLSearchParams(location.search);
   const lat = queryParams.get("lat");
@@ -20,7 +21,11 @@ const DetailWeatherPage = () => {
   useEffect(() => {
     dispatch(resetLoading());
     dispatch(
-      getDetailWeatherAndForecast({ lat: Number(lat), lon: Number(lon) })
+      getDetailWeatherAndForecast({
+        lat: Number(lat),
+        lon: Number(lon),
+        temperatureUnit: temperatureUnit,
+      })
     );
   }, [lat, lon]);
   if (!isLoaded) {

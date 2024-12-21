@@ -4,6 +4,7 @@ import CurrentLocationCityCardProps from "../interfaces/CurrentLocationCityCardP
 import Tooltip from "./Tooltip";
 import { Link } from "react-router";
 import { FaInfoCircle } from "react-icons/fa";
+import DisplayTemperatureSymbol from "./DisplayTemperatureSymbol";
 
 const CurrentLocationCityCard: React.FC<CurrentLocationCityCardProps> = ({
   city,
@@ -25,7 +26,10 @@ const CurrentLocationCityCard: React.FC<CurrentLocationCityCardProps> = ({
       </h4>
       <div>
         <h4>Temperatura</h4>
-        <p>{city.weather.temp}°C</p>
+        <p>
+          {city.weather.temp}
+          <DisplayTemperatureSymbol />
+        </p>
       </div>
       <div>
         <h4>Ciśnienie</h4>
