@@ -2,13 +2,13 @@ import { useEffect } from "react";
 import CurrentLocation from "../components/CurrentLocation";
 import LocationCard from "../components/LocationCard";
 import SearchBar from "../components/SearchBar";
-import data from "../data/location.json";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { getWeatherOnLocation } from "../features/locationWeather/locationWeatherSlice";
+import { clearSearchLocations } from "../features/favoritesLocation/favoriteLocationSlice";
 
 const OpenPage = () => {
   const { isUpdated } = useAppSelector((state) => state.locationWeather);
-  const { favoriteLocation } = useAppSelector(
+  const { favoriteLocation, searchLocations } = useAppSelector(
     (state) => state.favoriteLocation
   );
   const dispatch = useAppDispatch();
@@ -21,24 +21,26 @@ const OpenPage = () => {
         })
       );
     }
+    dispatch(clearSearchLocations());
   }, []);
   return (
     <main>
       <CurrentLocation />
       <div className="px-4 flex flex-col gap-2">
         <SearchBar />
-        {data.map((location, index) => (
-          <LocationCard
-            key={index}
-            cityName={location.name}
-            countryName={location.state}
-            countryCode={location.country}
-            coordinates={{
-              lat: location.lat,
-              lon: location.lon,
-            }}
-          />
-        ))}
+        {searchLocations.length > 0 &&
+          searchLocations.map((location, index) => (
+            <LocationCard
+              key={index}
+              cityName={location.name}
+              countryName={location.state}
+              countryCode={location.countryCode}
+              coordinates={{
+                lat: location.coordinates.lat,
+                lon: location.coordinates.lon,
+              }}
+            />
+          ))}
       </div>
     </main>
   );

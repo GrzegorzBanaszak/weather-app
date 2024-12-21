@@ -46,7 +46,6 @@ export const locationWeatherSclice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getWeatherOnLocation.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.weather = {
           temp: action.payload.main.temp,
           pressure: action.payload.main.pressure,
@@ -60,7 +59,7 @@ export const locationWeatherSclice = createSlice({
         };
         state.isUpdated = true;
       })
-      .addCase(getWeatherOnLocation.rejected, (state, action) => {
+      .addCase(getWeatherOnLocation.rejected, (state) => {
         state.isUpdated = false;
       });
   },

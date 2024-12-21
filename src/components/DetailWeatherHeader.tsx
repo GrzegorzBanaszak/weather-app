@@ -20,7 +20,7 @@ const DetailWeatherHeader = () => {
             />
           </div>
           <div className="flex flex-col items-end gap-2">
-            <div className="w-16 bg-blue-100 rounded-xl">
+            <div className="w-16 bg-white rounded-xl">
               <img
                 src={`https://openweathermap.org/img/wn/${currentWeather.weatherIcon}@2x.png`}
                 alt=""
