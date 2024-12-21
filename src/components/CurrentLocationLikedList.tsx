@@ -1,4 +1,3 @@
-import { IoMdMore } from "react-icons/io";
 import { Link } from "react-router";
 import Tooltip from "./Tooltip";
 import { FaInfoCircle } from "react-icons/fa";
@@ -16,7 +15,7 @@ const CurrentLocationLikedList = () => {
             <img className="w-8" src={`https://flagsapi.com/PL/flat/64.png`} />
           </div>
 
-          <Link to="/forecast">
+          <Link to="/detail-weather">
             <Tooltip message="Dokładne informacje pogodowe">
               <FaInfoCircle
                 className="cursor-pointer hover:text-blue-800 ease-in duration-300"

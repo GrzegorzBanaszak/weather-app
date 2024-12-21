@@ -33,6 +33,10 @@ const OpenPage = () => {
             cityName={location.name}
             countryName={location.state}
             countryCode={location.country}
+            coordinates={{
+              lat: location.lat,
+              lon: location.lon,
+            }}
           />
         ))}
       </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router";
+import Timer from "./Timer";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -9,6 +10,9 @@ const Navbar = () => {
       <div className="px-4 py-6 bg-blue-900 text-white md:flex md:justify-between md:items-center">
         <div className="flex justify-between items-center">
           <div className="font-bold">Pogodynka</div>
+          <div className="md:hidden">
+            <Timer />
+          </div>
           <div className="md:hidden">
             <GiHamburgerMenu size={24} onClick={() => setIsOpen(!isOpen)} />
           </div>
@@ -22,12 +26,12 @@ const Navbar = () => {
             <Link to="/">Strona główna</Link>
           </li>
           <li className="py-2">
-            <Link to="/detail-weather">Twoja lokalizacja</Link>
-          </li>
-          <li className="py-2">
             <Link to="/favorite-weather">Ulubione lokalizacje</Link>
           </li>
         </ul>
+        <div className="hidden md:block">
+          <Timer />
+        </div>
       </div>
     </nav>
   );

@@ -4,10 +4,12 @@ import LocationCardProps from "../interfaces/LocationCardProps";
 import { CiStar } from "react-icons/ci";
 import { FaInfoCircle } from "react-icons/fa";
 import Tooltip from "./Tooltip";
+import { Link } from "react-router";
 const LocationCard: React.FC<LocationCardProps> = ({
   cityName,
   countryName,
   countryCode,
+  coordinates,
 }) => {
   return (
     <div className="border-2 border-gray-100 rounded-lg px-4 py-2 flex justify-between items-center">
@@ -27,10 +29,14 @@ const LocationCard: React.FC<LocationCardProps> = ({
         </Tooltip>
 
         <Tooltip message="Dokładne informacje pogodowe">
-          <FaInfoCircle
-            className="cursor-pointer hover:text-blue-800 ease-in duration-300"
-            size={24}
-          />
+          <Link
+            to={`/detail-weather?lat=${coordinates.lat}&lon=${coordinates.lon}`}
+          >
+            <FaInfoCircle
+              className="cursor-pointer hover:text-blue-800 ease-in duration-300"
+              size={24}
+            />
+          </Link>
         </Tooltip>
       </div>
     </div>

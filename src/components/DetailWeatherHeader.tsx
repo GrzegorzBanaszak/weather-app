@@ -3,18 +3,24 @@ import DetailWeatherHeaderData from "./DetailWeatherHeaderData";
 import { useAppSelector } from "../app/hooks";
 
 const DetailWeatherHeader = () => {
-  const { currentWeather } = useAppSelector((state) => state.detailWeather);
-  const { currentLocation } = useAppSelector((state) => state.favoriteLocation);
+  const { currentWeather, cityName, country } = useAppSelector(
+    (state) => state.detailWeather
+  );
+
   return (
     <div className="py-6 bg-blue-400 px-4 text-white">
       <div className="">
         <div className="flex justify-between">
           <div className="flex items-center text-2xl md:text-5xl">
             <FaLocationDot />
-            <h1 className=" font-bold py-3 ml-2">{currentLocation.name}</h1>
+            <h1 className=" font-bold py-3 ml-2">{cityName}</h1>
+            <img
+              className="pl-6"
+              src={`https://flagsapi.com/${country}/flat/64.png`}
+            />
           </div>
           <div className="flex flex-col items-end gap-2">
-            <div className="w-16 bg-blue-300 rounded-xl">
+            <div className="w-16 bg-blue-100 rounded-xl">
               <img
                 src={`https://openweathermap.org/img/wn/${currentWeather.weatherIcon}@2x.png`}
                 alt=""

@@ -28,7 +28,9 @@ const CurrentLocation = () => {
               {favoriteLocation.name}
             </h2>
           </div>
-          <Link to="/detail-weather">
+          <Link
+            to={`/detail-weather?lat=${favoriteLocation.coordinates.lat}&lon=${favoriteLocation.coordinates.lon}`}
+          >
             <button className="bg-white text-blue-900 px-4 py-2 rounded">
               Sprawdz dokładną pogodę
             </button>
