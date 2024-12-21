@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import data from "../../data/weatherOnLocation.json";
 import LocationWeatherState from "../../interfaces/LocationWeatherState";
 import locationWeatherService from "./locationWeatherService";
 import Coordinate from "../../interfaces/Coordinate";
@@ -22,8 +21,8 @@ export const getWeatherOnLocation = createAsyncThunk(
 
 const initialState: LocationWeatherState = {
   coordinates: {
-    lon: data.coord.lon,
-    lat: data.coord.lat,
+    lon: 0,
+    lat: 0,
   },
   weather: {
     temp: 0,
@@ -42,7 +41,28 @@ const initialState: LocationWeatherState = {
 export const locationWeatherSclice = createSlice({
   name: "locationWeather",
   initialState,
-  reducers: {},
+  reducers: {
+    homeLocationChanged(state) {
+      state.isUpdated = false;
+    },
+    clearState(state) {
+      state.coordinates = {
+        lon: 0,
+        lat: 0,
+      };
+      state.weather = {
+        temp: 0,
+        pressure: 0,
+        humidity: 0,
+        weatherDescription: "",
+        weatherIcon: "",
+        clouds: 0,
+        windSpeed: 0,
+        windDeg: 0,
+        pop: 0,
+      };
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getWeatherOnLocation.fulfilled, (state, action) => {
@@ -65,5 +85,5 @@ export const locationWeatherSclice = createSlice({
   },
 });
 
-export const {} = locationWeatherSclice.actions;
+export const { homeLocationChanged } = locationWeatherSclice.actions;
 export default locationWeatherSclice.reducer;

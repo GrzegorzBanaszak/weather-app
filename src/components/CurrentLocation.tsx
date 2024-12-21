@@ -28,6 +28,7 @@ const CurrentLocation = () => {
               {favoriteLocation.name}
             </h2>
           </div>
+
           <Link
             to={`/detail-weather?lat=${favoriteLocation.coordinates.lat}&lon=${favoriteLocation.coordinates.lon}`}
           >

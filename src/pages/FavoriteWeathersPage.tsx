@@ -17,6 +17,7 @@ const FavoriteWeathersPage = () => {
           countryCode={item.countryCode}
           countryName={item.state}
           isHome={item.name === favoriteLocation.name}
+          coordinates={item.coordinates}
         />
       ))}
     </div>

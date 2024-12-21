@@ -13,7 +13,7 @@ const CurrentLocationLikedList = () => {
         Ulubione lokalizacje
       </h2>
       <div className="flex flex-wrap gap-2 justify-between text-black md:justify-end">
-        {favoriteLocations.map((item, index) => (
+        {favoriteLocations.slice(0, 3).map((item, index) => (
           <div
             key={index}
             className="bg-white p-4 shadow-lg rounded-lg flex justify-between items-center w-full md:w-auto md:min-w-[200px]"

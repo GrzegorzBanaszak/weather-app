@@ -1,46 +1,42 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import FavoriteLocationState from "../../interfaces/FavoriteLocationState";
 import favoriteLocationService from "./favoriteLocationService";
+import CityLocation from "../../interfaces/CityLocation";
+
+const saveToLocalStorage = (key: string, value: object): void => {
+  localStorage.setItem(key, JSON.stringify(value));
+};
+const getFromLocalStorage = <T>(key: string): T | null => {
+  const value = localStorage.getItem(key);
+  return value ? JSON.parse(value) : null;
+};
+
+const favoriteLocation = getFromLocalStorage<CityLocation>("favoriteLocation");
+const favoriteLocations =
+  getFromLocalStorage<CityLocation[]>("favoriteLocations");
 
 const initialState: FavoriteLocationState = {
   currentLocation: {
-    name: "Syców",
-    countryCode: "PL",
-    state: "Polska",
+    name: "",
+    countryCode: "",
+    state: "",
     coordinates: {
-      lat: 51.3,
-      lon: 17.72,
+      lat: 0,
+      lon: 0,
     },
   },
-  favoriteLocation: {
-    name: "Syców",
-    countryCode: "PL",
-    state: "Polska",
-    coordinates: {
-      lat: 51.3,
-      lon: 17.72,
-    },
-  },
-  favoriteLocations: [
-    {
-      name: "Syców",
-      countryCode: "PL",
-      state: "Polska",
-      coordinates: {
-        lat: 51.3,
-        lon: 17.72,
+  favoriteLocation: favoriteLocation
+    ? favoriteLocation
+    : {
+        name: "",
+        countryCode: "",
+        state: "",
+        coordinates: {
+          lat: 0,
+          lon: 0,
+        },
       },
-    },
-    {
-      name: "London",
-      countryCode: "GB",
-      state: "England",
-      coordinates: {
-        lat: 51.5,
-        lon: -0.12,
-      },
-    },
-  ],
+  favoriteLocations: favoriteLocations ? favoriteLocations : [],
   searchLocations: [],
 };
 
@@ -64,6 +60,32 @@ export const favoriteLocationSlice = createSlice({
     clearSearchLocations: (state) => {
       state.searchLocations = [];
     },
+    setFavoriteLocation: (state, action: PayloadAction<CityLocation>) => {
+      state.favoriteLocation = action.payload;
+      saveToLocalStorage("favoriteLocation", action.payload);
+    },
+    addToFavoriteList(state, action: PayloadAction<CityLocation>) {
+      state.favoriteLocations.push(action.payload);
+      saveToLocalStorage("favoriteLocations", state.favoriteLocations);
+    },
+    removeFromFavoriteList(state, action: PayloadAction<CityLocation>) {
+      state.favoriteLocations = state.favoriteLocations.filter(
+        (item) => item.name !== action.payload.name
+      );
+      saveToLocalStorage("favoriteLocations", state.favoriteLocations);
+      if (state.favoriteLocation.name === action.payload.name) {
+        state.favoriteLocation = {
+          name: "",
+          countryCode: "",
+          state: "",
+          coordinates: {
+            lat: 0,
+            lon: 0,
+          },
+        };
+        saveToLocalStorage("favoriteLocation", state.favoriteLocation);
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(searchLocations.fulfilled, (state, action) => {
@@ -80,5 +102,10 @@ export const favoriteLocationSlice = createSlice({
   },
 });
 
-export const { clearSearchLocations } = favoriteLocationSlice.actions;
+export const {
+  clearSearchLocations,
+  setFavoriteLocation,
+  addToFavoriteList,
+  removeFromFavoriteList,
+} = favoriteLocationSlice.actions;
 export default favoriteLocationSlice.reducer;
