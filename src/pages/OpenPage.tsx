@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { getWeatherOnLocation } from "../features/locationWeather/locationWeatherSlice";
 import { clearSearchLocations } from "../features/favoritesLocation/favoriteLocationSlice";
 import { Link } from "react-router";
+import CurrentLocationCityList from "../components/CurrentLocationCityList";
 
 const OpenPage = () => {
   const { isUpdated } = useAppSelector((state) => state.locationWeather);
@@ -42,7 +43,7 @@ const OpenPage = () => {
           </Link>
         </div>
       )}
-
+      <CurrentLocationCityList />
       <div className="px-4 flex flex-col gap-2">
         <SearchBar />
         {searchLocations.length > 0 &&

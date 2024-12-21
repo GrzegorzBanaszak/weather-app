@@ -9,8 +9,16 @@ const getWeatherOnLocation = async (lat: number, lon: number) => {
   return res.data;
 };
 
+const getWeatherByCityName = async (cityName: string) => {
+  const res = await axios.get(
+    `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&lang=pl&appid=${apiKey}&units=metric`
+  );
+
+  return res.data;
+};
 const locationWeatherService = {
   getWeatherOnLocation,
+  getWeatherByCityName,
 };
 
 export default locationWeatherService;

@@ -3,21 +3,7 @@ import LocationWeatherState from "../../interfaces/LocationWeatherState";
 import locationWeatherService from "./locationWeatherService";
 import Coordinate from "../../interfaces/Coordinate";
 
-export const getWeatherOnLocation = createAsyncThunk(
-  "locationWeather/getWeatherOnLocation",
-  async (coordinates: Coordinate, thunkAPI) => {
-    try {
-      return await locationWeatherService.getWeatherOnLocation(
-        coordinates.lat,
-        coordinates.lon
-      );
-    } catch (error: any) {
-      const message =
-        error.response.data.message || error.message || error.toString();
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
+const mostPopularCities = ["warszawa", "krakow", "wroclaw", "poznan", "gdansk"];
 
 const initialState: LocationWeatherState = {
   coordinates: {
@@ -35,8 +21,44 @@ const initialState: LocationWeatherState = {
     windDeg: 0,
     pop: 0,
   },
+  mostPopularCities: [],
   isUpdated: false,
 };
+
+export const getWeatherOnLocation = createAsyncThunk(
+  "locationWeather/getWeatherOnLocation",
+  async (coordinates: Coordinate, thunkAPI) => {
+    try {
+      return await locationWeatherService.getWeatherOnLocation(
+        coordinates.lat,
+        coordinates.lon
+      );
+    } catch (error: any) {
+      const message =
+        error.response.data.message || error.message || error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const getWeatherOnMostPopularCities = createAsyncThunk(
+  "locationWeather/getWeatherOnMostPopularCities",
+  async (_, thunkAPI) => {
+    try {
+      const data: Promise<any>[] = [];
+
+      mostPopularCities.forEach((city) => {
+        data.push(locationWeatherService.getWeatherByCityName(city));
+      });
+
+      return await Promise.all(data);
+    } catch (error: any) {
+      const message =
+        error.response.data.message || error.message || error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const locationWeatherSclice = createSlice({
   name: "locationWeather",
@@ -81,6 +103,28 @@ export const locationWeatherSclice = createSlice({
       })
       .addCase(getWeatherOnLocation.rejected, (state) => {
         state.isUpdated = false;
+      })
+      .addCase(getWeatherOnMostPopularCities.fulfilled, (state, action) => {
+        state.mostPopularCities = action.payload.map((city: any) => {
+          return {
+            name: city.name,
+            weather: {
+              temp: city.main.temp,
+              pressure: city.main.pressure,
+              humidity: city.main.humidity,
+              weatherDescription: city.weather[0].description,
+              weatherIcon: city.weather[0].icon,
+              clouds: city.clouds.all,
+              windSpeed: city.wind.speed,
+              windDeg: city.wind.deg,
+              pop: 0,
+            },
+            coordinate: {
+              lat: city.coord.lat,
+              lon: city.coord.lon,
+            },
+          };
+        });
       });
   },
 });
