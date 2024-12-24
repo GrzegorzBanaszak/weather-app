@@ -15,7 +15,7 @@ const CurrentLocationCityList = () => {
   return (
     <div className="bg-blue-200 p-4">
       <h3 className="text-center text-2xl my-4">Popularne miasta w polsce</h3>
-      <div className="md:grid md:grid-cols-5 gap-4">
+      <div className="grid md:grid-cols-5 gap-4">
         {mostPopularCities.map((city, index) => (
           <CurrentLocationCityCard key={index} city={city} />
         ))}

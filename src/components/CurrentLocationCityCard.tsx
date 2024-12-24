@@ -26,18 +26,18 @@ const CurrentLocationCityCard: React.FC<CurrentLocationCityCardProps> = ({
       </h4>
       <div>
         <h4>Temperatura</h4>
-        <p>
+        <div>
           {city.weather.temp}
           <DisplayTemperatureSymbol />
-        </p>
+        </div>
       </div>
       <div>
         <h4>Ciśnienie</h4>
-        <p className="text-center md:text-left">{city.weather.pressure} hPa</p>
+        <p className="">{city.weather.pressure} hPa</p>
       </div>
       <div>
         <h4>Siła wiatru</h4>
-        <p className="text-center md:text-left flex items-center gap-2">
+        <p className=" flex items-center gap-2">
           {city.weather.windSpeed} km/h
           <TbArrowBadgeUpFilled
             style={{ rotate: `${city.weather.windDeg}deg}` }}

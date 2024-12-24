@@ -7,10 +7,10 @@ const CurrentLocationWeatherData = () => {
     <div className="flex my-4 justify-between md:flex-col ">
       <div>
         <h4 className="font-bold">Temperatura</h4>
-        <p>
+        <div>
           {weather.temp}
           <DisplayTemperatureSymbol />
-        </p>
+        </div>
       </div>
       <div>
         <h4 className="font-bold">Ciśnienie</h4>
